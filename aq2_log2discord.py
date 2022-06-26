@@ -50,7 +50,7 @@ if __name__ == '__main__':
     for line in loglines:
         for k, v in event_msgs.items():
             m = re.search(v,line)
-            if m and 'MVDSPEC' not int m.group(1):
+            if m and 'MVDSPEC' not in m.group(1):
                 print(line.strip('\n'))
                 msg = line.strip('\n')[20:]
                 if k == "score":
@@ -74,4 +74,4 @@ if __name__ == '__main__':
                 if fmsg:
                     webhook = DiscordWebhook(url=WEBHOOK, username=DISCORD_USERNAME, rate_limit_retry=True, content=fmsg )
                     response = webhook.execute()
-                    del fmgs
+                    del fmsg
