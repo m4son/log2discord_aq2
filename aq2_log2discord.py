@@ -14,9 +14,9 @@ from discord_webhook import DiscordWebhook
 # seta logfile_flush 2
 #
 
-WEBHOOK = "WEBHOOK_URL" 
-DISCORD_USERNAME = "Console"
-CLOG = "logfile.log"
+WEBHOOK = os.getenv('WEBHOOK_URL','YOUR_WEBHOOK_URL')
+DISCORD_USERNAME = os.getenv('BOTNAME', 'Console')
+CLOG = os.getenv('CLOGFILE','console.log')
 CURRENT = False
 
 def follow(thefile):
@@ -45,7 +45,7 @@ event_msgs = {
 
 if __name__ == '__main__':
 
-    logfile = open(CLOG,"r")
+    logfile = open("./logs/"+CLOG,"r")
     loglines = follow(logfile)
     for line in loglines:
         for k, v in event_msgs.items():
