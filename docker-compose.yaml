@@ -11,6 +11,4 @@ services:
       - CLOGFILE=27910.log
     volumes:
       - /opt/aqtion/logs:/opt/aq2_log2disc/logs
-
-volumes:
-  maps:
+      
