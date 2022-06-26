@@ -46,7 +46,7 @@ if __name__ == '__main__':
     for line in loglines:
         for k, v in event_msgs.items():
             m = re.search(v,line)
-            if m:
+            if m and 'MVDSPEC' not int m.group(1):
                 msg = line.strip('\n')[20:]
                 if k == "cname":
                     fmsg ='```diff\n- {} is known as {}\n```'.format(m.group(1),m.group(2))
