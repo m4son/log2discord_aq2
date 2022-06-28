@@ -35,7 +35,7 @@ event_msgs = {
         "join":"A .+\] (.+) entered the game",
         "diss":"A .+\] (.+)\[.+ disconnected",
         "cname":"A .+\] (.+)\[.+ changed name to (.+)",
-        "chat":"T .+\] (\w.+)\: (.+)",
+        "alive":"T .+\] (\w.+)\: (.+)",
         "dead":"T .+\] \[DEAD] (\w.+)\: (.+)",
         "map":"A .+\] Next map is (.+)",
         "map2":"A .+\] SpawnServer: (.+)",
@@ -65,7 +65,7 @@ if __name__ == '__main__':
                     fmsg ='```diff\n- {} disconnected\n```'.format(m.group(1))
                 if k == "join":
                     fmsg ='```diff\n- {} entered the game\n```'.format(m.group(1))
-                if k == "chat":
+                if k == "alive" and '[DEAD]' not in m.group(1):
                     fmsg ='```diff\n+ {}: {}\n```'.format(m.group(1),m.group(2))
                 if k == "dead":
                     fmsg ='```diff\n+ [DEAD] {}: {}\n```'.format(m.group(1),m.group(2))
