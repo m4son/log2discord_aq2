@@ -51,8 +51,6 @@ if __name__ == '__main__':
         for k, v in event_msgs.items():
             m = re.search(v,line)
             if m and 'MVDSPEC' not in m.group(1):
-                print(line.strip('\n'))
-                msg = line.strip('\n')[20:]
                 if k == "score":
                     last_score = m
                     if CURRENT:
@@ -65,7 +63,7 @@ if __name__ == '__main__':
                     fmsg ='```diff\n- {} disconnected\n```'.format(m.group(1))
                 if k == "join":
                     fmsg ='```diff\n- {} entered the game\n```'.format(m.group(1))
-                if k == "alive" and '[DEAD]' not in m.group(1):
+                if k == "alive" and '[DEAD]' not in line:
                     fmsg ='```diff\n+ {}: {}\n```'.format(m.group(1),m.group(2))
                 if k == "dead":
                     fmsg ='```diff\n+ [DEAD] {}: {}\n```'.format(m.group(1),m.group(2))
