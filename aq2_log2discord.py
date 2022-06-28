@@ -9,7 +9,7 @@ from discord_webhook import DiscordWebhook
 #
 # q2proded
 #
-# seta logfile_prefix '[%Y-%m-%d %H:%M] @ '
+# seta logfile_prefix '@ [%Y-%m-%d %H:%M] '
 # seta logfile 1
 # seta logfile_flush 2
 #
@@ -32,15 +32,15 @@ def follow(thefile):
         yield line
         
 event_msgs = {
-        "join":"] A (.+) entered the game",
-        "diss":"] A (.+)\[.+ disconnected",
-        "cname":"] A (.+)\[.+ changed name to (.+)",
-        "chat":"] T (\w.+)\: (.+)",
-        "dead":"] T \[DEAD] (\w.+)\: (.+)",
-        "map":"] A Next map is (.+)",
-        "map2":"] A SpawnServer: (.+)",
-        "score":"] A Current score is.+\:.(.+) to .+\: (.+)",
-        "gameend":"] A Game ending at: (.+)",
+        "join":"A .+\] (.+) entered the game",
+        "diss":"A .+\] (.+)\[.+ disconnected",
+        "cname":"A .+\] (.+)\[.+ changed name to (.+)",
+        "chat":"T .+\] (\w.+)\: (.+)",
+        "dead":"T .+\] \[DEAD] (\w.+)\: (.+)",
+        "map":"A .+\] Next map is (.+)",
+        "map2":"A .+\] SpawnServer: (.+)",
+        "score":"A .+\] Current score is.+\:.(.+) to .+\: (.+)",
+        "gameend":"A .+\] Game ending at: (.+)",
 }
 
 if __name__ == '__main__':
