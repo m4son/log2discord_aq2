@@ -35,8 +35,7 @@ event_msgs = {
         "join":"A .+\] (.+) entered the game",
         "diss":"A .+\] (.+)\[.+ disconnected",
         "cname":"A .+\] (.+)\[.+ changed name to (.+)",
-        "alive":"T .+\] (\w.+)\: (.+)",
-        "dead":"T .+\] \[DEAD] (\w.+)\: (.+)",
+        "chat":"T .+\] (\w.+)\: (.+)",
         "map":"A .+\] Next map is (.+)",
         "map2":"A .+\] SpawnServer: (.+)",
         "score":"A .+\] Current score is.+\:.(.+) to .+\: (.+)",
@@ -63,10 +62,11 @@ if __name__ == '__main__':
                     fmsg ='```diff\n- {} disconnected\n```'.format(m.group(1))
                 if k == "join":
                     fmsg ='```diff\n- {} entered the game\n```'.format(m.group(1))
-                if k == "alive" and '[DEAD]' not in line:
-                    fmsg ='```diff\n+ {}: {}\n```'.format(m.group(1),m.group(2))
-                if k == "dead":
-                    fmsg ='```diff\n+ [DEAD] {}: {}\n```'.format(m.group(1),m.group(2))
+                if k == "chat":
+                    if '[DEAD]' in line:
+                        fmsg ='```diff\n+ [DEAD] {}: {}\n```'.format(m.group(1),m.group(2))
+                    else:
+                        fmsg ='```diff\n+ {}: {}\n```'.format(m.group(1),m.group(2))
                 if k == "map" or k == "map2":
                     fmsg ='**```fix\n SpawnMap: {}\n```**'.format(m.group(1))
                 if fmsg:
