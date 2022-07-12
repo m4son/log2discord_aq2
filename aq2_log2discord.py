@@ -1,8 +1,6 @@
 #!/usr/bin/python3.5
 
-import time
-import os
-import re
+import sys, os, time, re, logging
 from discord_webhook import DiscordWebhook
 
 # IMPORTANT
@@ -18,6 +16,13 @@ WEBHOOK = os.getenv('WEBHOOK_URL','YOUR_WEBHOOK_URL')
 DISCORD_USERNAME = os.getenv('BOTNAME', 'Console')
 CLOG = os.getenv('CLOGFILE','console.log')
 CURRENT = False
+
+# Logging setup
+LOGLEVEL = os.environ.get('LOGLEVEL', 'INFO').upper()
+Log_Format = "%(levelname)s %(asctime)s - %(message)s"
+logging.basicConfig(stream=sys.stdout, format=Log_Format, level=LOGLEVEL)
+logger = logging.getLogger()
+logger.info("Log level set to %s", LOGLEVEL)
 
 def follow(thefile):
     '''generator function that yields new lines in a file
@@ -43,13 +48,19 @@ event_msgs = {
 }
 
 if __name__ == '__main__':
-
-    logfile = open("./logs/"+CLOG,"r")
-    loglines = follow(logfile)
+    try:
+        logfile = open("./logs/"+CLOG,"r")
+        loglines = follow(logfile)
+    except OSError:
+        logger.info("Cannot open "+CLOG)    
+    else:
+        logger.info("Logfile ("+CLOG+") Opened!")
+    
     for line in loglines:
         for k, v in event_msgs.items():
             m = re.search(v,line)
             if m and 'MVDSPEC' not in m.group(1):
+                logger.info(k+" >> "+line)
                 if k == "score":
                     last_score = m
                     if CURRENT:
